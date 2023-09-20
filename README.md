@@ -1,5 +1,10 @@
-HOW TO RUN IT:
+<html>
+HOW TO RUN IT:<br/>
+<br/>
+Clone the repository.<br/>
 
-Clone the repository.
-Run command 'npm i'
-Run command 'npm start'
+Run command 'npm i'<br/>
+
+Run command 'npm start'<br/>
+
+</html>
