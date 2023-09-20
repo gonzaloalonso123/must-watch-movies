@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AppContext } from "../context/AppContext";
 
-export const MovieCard = ({ title, image, synopsis, release, select }) => {
+export const MovieCard = ({ movie }) => {
+  const { title, release, synopsis, image } = movie;
+  const { setSelectedMovie, setCurrentTab } = useContext(AppContext);
   return (
     <div
       className="flex rounded-sm bg-gray-800 w-full h-80 shadow-lg shadow-black cursor-pointer"
-      onClick={select}
+      onClick={() => {
+        setSelectedMovie(movie);
+        setCurrentTab("movie");
+      }}
     >
       <img src={image} className="w-1/2" />
       <div className="p-4 text-white text-sm flex flex-col gap-4">

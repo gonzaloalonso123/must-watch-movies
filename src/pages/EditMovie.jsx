@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FormItem } from "../components/FormItem";
 import { StageSelector } from "../components/StageSelector";
+import { AppContext } from "../context/AppContext";
 
-export const EditMovie = ({ movieToEdit, saveMovie }) => {
-  const [title, setTitle] = useState(movieToEdit?.title || "");
-  const [synopsis, setSynopsis] = useState(movieToEdit?.synopsis || "");
-  const [release, setRelease] = useState(movieToEdit?.release || "");
-  const [image, setImage] = useState(movieToEdit?.image || "");
-  const [cast, setCast] = useState(movieToEdit?.cast || []);
+export const EditMovie = () => {
+  const { selectedMovie, saveMovie } = useContext(AppContext);
+
+  const [title, setTitle] = useState(selectedMovie?.title || "");
+  const [synopsis, setSynopsis] = useState(selectedMovie?.synopsis || "");
+  const [release, setRelease] = useState(selectedMovie?.release || "");
+  const [image, setImage] = useState(selectedMovie?.image || "");
+  const [cast, setCast] = useState(selectedMovie?.cast || []);
   const [stage, setStage] = useState(1);
 
   const editCast = (i, val, type) => {
@@ -30,7 +33,7 @@ export const EditMovie = ({ movieToEdit, saveMovie }) => {
       release,
       image,
       cast,
-      id: movieToEdit?.id || Math.random(),
+      id: selectedMovie?.id || Math.random(),
     };
     saveMovie(newMovie);
   };
@@ -98,23 +101,26 @@ export const EditMovie = ({ movieToEdit, saveMovie }) => {
           <>
             <h1 className="text-white text-5xl">Review</h1>
             <div className="flex flex-col gap-4">
-              <h1>Title : {title}</h1>
-              <h1>
-                Image : <img src={image} alt="not found" />
-              </h1>
-              <h1>Synopsis : {synopsis}</h1>
-              <h1>
-                Cast :{" "}
-                {cast
-                  .map((actor) => `${actor.name} as ${actor.role}`)
-                  .join(", ")}
-              </h1>
+              <div className="flex gap-4">
+                <img src={image} alt="not found" className="h-96" />
+                <div>
+                  <h1 className="text-3xl font-black">{title}</h1>
+
+                  <h1>Synopsis : {synopsis}</h1>
+                  <h1>
+                    Cast :{" "}
+                    {cast
+                      .map((actor) => `${actor.name} as ${actor.role}`)
+                      .join(", ")}
+                  </h1>
+                </div>
+              </div>
             </div>
             <button
               className="bg-purple-900 text-white rounded-2xl p-2 text-2xl w-1/3 mx-auto mt-10 font-black"
               onClick={save}
             >
-              Add
+              Save
             </button>
           </>
         )}
